@@ -10,7 +10,3 @@ The application is not ready to go, you will have to modify the source code acco
 2. Add the app to the taskbar
 3. Run the app for the first time (nothing is supposed to happen)
 4. You can now right click the app and run any vault
-
-<br>
-
-If you have any questions, contact me on [Twitter](https://twitter.com/_qurius)
