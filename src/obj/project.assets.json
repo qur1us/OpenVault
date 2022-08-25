@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\patri\\Documents\\Programming projects\\OpenVault\\OpenVault.csproj",
+      "projectUniqueName": "C:\\Users\\patri\\Documents\\Programming projects\\OpenVault\\src\\OpenVault.csproj",
       "projectName": "OpenVault",
-      "projectPath": "C:\\Users\\patri\\Documents\\Programming projects\\OpenVault\\OpenVault.csproj",
+      "projectPath": "C:\\Users\\patri\\Documents\\Programming projects\\OpenVault\\src\\OpenVault.csproj",
       "packagesPath": "C:\\Users\\patri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\patri\\Documents\\Programming projects\\OpenVault\\obj\\",
+      "outputPath": "C:\\Users\\patri\\Documents\\Programming projects\\OpenVault\\src\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\patri\\AppData\\Roaming\\NuGet\\NuGet.Config",

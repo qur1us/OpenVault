@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "endeiNS7zUFdPxd+rM8RoRxy64NsSBl5Cf80kJUZWlNsb7O3xUB+BLUDylohQgleQO6rFAPd8831prXyZYEt+Q==",
+  "dgSpecHash": "AiQPXUXWqcQIoIm3AI2EeadiseSq+/B7DeQYgIA61WlA6I6+/8oX/dgZbJkMlD2FMNtaYok+nCBvEGpkHKd/rg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\patri\\Documents\\Programming projects\\OpenVault\\OpenVault.csproj",
+  "projectFilePath": "C:\\Users\\patri\\Documents\\Programming projects\\OpenVault\\src\\OpenVault.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
