@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\patri\Documents\Programming projects\OpenVault\obj\Release\net6.0-windows\
+C:\Users\patri\Documents\Programming projects\OpenVault\src\obj\Release\net6.0-windows\
 OpenVault
 none
 false
 TRACE;RELEASE;NET;NET6_0;NETCOREAPP
-C:\Users\patri\Documents\Programming projects\OpenVault\App.xaml
-11407045341
-1-1986608355
-5-1404906364
-1942030480316
-MainWindow.xaml;
+C:\Users\patri\Documents\Programming projects\OpenVault\src\App.xaml
 
-True
+1-1986608355
+4-521860155
+203992220159
+
+
+False
 
