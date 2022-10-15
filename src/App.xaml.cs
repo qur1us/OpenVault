@@ -28,13 +28,11 @@ namespace OpenVault
             // EOSec
             JumpTask eosecVault = new JumpTask();
             eosecVault.ApplicationPath = "obsidian://open/?vault=EO Security";
-            eosecVault.IconResourcePath = "..\\Resources\\EO_logo.ico";
             eosecVault.Title = "EO Security";
 
             // Infosec
             JumpTask infosecVault = new JumpTask();
             infosecVault.ApplicationPath = "obsidian://open/?vault=Information Security";
-            infosecVault.IconResourcePath = "..\\Resources\\htb.ico";
             infosecVault.Title = "Information Security";
 
             jl.JumpItems.Add(personalVault);
