@@ -27,13 +27,13 @@ namespace OpenVault
 
             // EOSec
             JumpTask eosecVault = new JumpTask();
-            eosecVault.ApplicationPath = "obsidian://open/?vault=EO Security";
-            eosecVault.Title = "EO Security";
+            eosecVault.ApplicationPath = "obsidian://open/?vault=Work";
+            eosecVault.Title = "Work";
 
             // Infosec
             JumpTask infosecVault = new JumpTask();
-            infosecVault.ApplicationPath = "obsidian://open/?vault=Information Security";
-            infosecVault.Title = "Information Security";
+            infosecVault.ApplicationPath = "obsidian://open/?vault=Hacking";
+            infosecVault.Title = "Hacking";
 
             jl.JumpItems.Add(personalVault);
             jl.JumpItems.Add(eosecVault);
@@ -51,13 +51,13 @@ namespace OpenVault
 
             ToolStripMenuItem personal = new ToolStripMenuItem("Personal");
             personal.Click += new EventHandler(StartPersonalVault);
-            
-            ToolStripMenuItem infosec = new ToolStripMenuItem("EO Security");
-            infosec.Click += new EventHandler(StartWorkVault);
-            
-            ToolStripMenuItem work = new ToolStripMenuItem("Information Security");
-            work.Click += new EventHandler(StartInfosecVault);
 
+            ToolStripMenuItem work = new ToolStripMenuItem("Work");
+            work.Click += new EventHandler(StartWorkVault);
+
+            ToolStripMenuItem infosec = new ToolStripMenuItem("Hacking");
+            infosec.Click += new EventHandler(StartInfosecVault);
+            
             ToolStripMenuItem exitMenu = new ToolStripMenuItem("Exit");
             exitMenu.Click += new EventHandler(Exit);
 
@@ -81,7 +81,7 @@ namespace OpenVault
 
         public void StartWorkVault(object sender, EventArgs e)
         {
-            string url = "obsidian://open/?vault=EO Security";
+            string url = "obsidian://open/?vault=Work";
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.UseShellExecute = true;
@@ -91,7 +91,7 @@ namespace OpenVault
 
         public void StartInfosecVault(object sender, EventArgs e)
         {
-            string url = "obsidian://open/?vault=Information Security";
+            string url = "obsidian://open/?vault=Hacking";
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.UseShellExecute = true;
