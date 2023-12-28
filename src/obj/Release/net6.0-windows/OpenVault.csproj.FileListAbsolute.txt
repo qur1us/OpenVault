@@ -25,7 +25,6 @@ C:\Users\patri\Documents\Programming projects\OpenVault\src\bin\Release\net6.0-w
 C:\Users\patri\Documents\Programming projects\OpenVault\src\bin\Release\net6.0-windows\OpenVault.runtimeconfig.json
 C:\Users\patri\Documents\Programming projects\OpenVault\src\bin\Release\net6.0-windows\OpenVault.dll
 C:\Users\patri\Documents\Programming projects\OpenVault\src\bin\Release\net6.0-windows\OpenVault.pdb
-C:\Users\patri\Documents\Programming projects\OpenVault\src\obj\Release\net6.0-windows\OpenVault.csproj.AssemblyReference.cache
 C:\Users\patri\Documents\Programming projects\OpenVault\src\obj\Release\net6.0-windows\App.g.cs
 C:\Users\patri\Documents\Programming projects\OpenVault\src\obj\Release\net6.0-windows\OpenVault_Content.g.cs
 C:\Users\patri\Documents\Programming projects\OpenVault\src\obj\Release\net6.0-windows\OpenVault_MarkupCompile.cache

@@ -1,103 +1,127 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
+using System.Text.Json;
 using System.Windows.Shell;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Application = System.Windows.Application;
+using System.Collections.Generic;
 
 namespace OpenVault
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
+    public class AppConfig
+    {
+        public List<string>? VaultNames { get; set; }
+        public bool Tray {  get; set; }
+        public bool Taskbar { get; set; }
+
+        public AppConfig(List<string>? vaultNames, bool tray, bool taskbar)
+        {
+            VaultNames = vaultNames;
+            Tray = tray;
+            Taskbar = taskbar;
+        }
+    }
+
     public partial class App : Application
     {
+        private AppConfig? ReadConfig(string jsonFilePath)
+        {
+            try
+            {
+                string jsonString = File.ReadAllText(jsonFilePath);
+
+                AppConfig? config = JsonSerializer.Deserialize<AppConfig>(jsonString);
+
+                if (config == null)
+                {
+                    return null;
+                }
+
+                if (config.VaultNames == null)
+                {
+                    System.Windows.Forms.MessageBox.Show($"Error parsing the config file {jsonFilePath}\n\n{jsonString}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return null;
+                }
+                
+                return config;
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show($"Error reading config file {jsonFilePath}\n\n{e.Message}", "IO Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            return null;
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            // Rightclick on the app added to the taskbar
-            JumpList jl = new JumpList();
+            AppConfig? config = ReadConfig("..\\..\\..\\config.json");
 
-            // Personal
-            JumpTask personalVault = new JumpTask();
-            personalVault.ApplicationPath = "obsidian://open/?vault=Personal";
-            personalVault.Title = "Personal";
+            if (config == null)
+            {
+                Environment.Exit(1);
+            }
 
-            // EOSec
-            JumpTask eosecVault = new JumpTask();
-            eosecVault.ApplicationPath = "obsidian://open/?vault=Work";
-            eosecVault.Title = "Work";
+            if (config.Taskbar == true)
+            {
+                // Add jump tasks to use if the app is pinned to the taskbar
+                JumpList jl = new JumpList();
 
-            // Infosec
-            JumpTask infosecVault = new JumpTask();
-            infosecVault.ApplicationPath = "obsidian://open/?vault=Hacking";
-            infosecVault.Title = "Hacking";
+                foreach (string vaultName in config.VaultNames)
+                {
+                    JumpTask jt = new JumpTask();
 
-            jl.JumpItems.Add(personalVault);
-            jl.JumpItems.Add(eosecVault);
-            jl.JumpItems.Add(infosecVault);
+                    jt.ApplicationPath = $"obsidian://open/?vault={vaultName}";
+                    jt.Title = vaultName;
+
+                    jl.JumpItems.Add(jt);
+                }
+
+                JumpList.SetJumpList(Current, jl);
+            }
             
-            JumpList.SetJumpList(App.Current, jl);
+            if (config.Tray == true)
+            {
+                // Add tray icon to make OpenVault available every time from system tray
+                NotifyIcon TrayIcon = new NotifyIcon();
+                ContextMenuStrip menu = new ContextMenuStrip();
 
+                TrayIcon.Icon = new System.Drawing.Icon("..\\..\\..\\Resources\\obsidian.ico");
+                TrayIcon.ContextMenuStrip = menu;
 
-            // System tray
-            NotifyIcon TrayIcon = new NotifyIcon();
-            ContextMenuStrip menu = new ContextMenuStrip();
+                foreach (string vaultName in config.VaultNames)
+                {
+                    EventHandler handler = (sender, e) => StartVault(sender, e, vaultName);
 
-            TrayIcon.Icon = new System.Drawing.Icon("..\\..\\..\\Resources\\obsidian.ico");
-            TrayIcon.ContextMenuStrip = menu;
+                    ToolStripMenuItem item = new ToolStripMenuItem(vaultName);
+                    item.Click += new EventHandler(handler);
 
-            ToolStripMenuItem personal = new ToolStripMenuItem("Personal");
-            personal.Click += new EventHandler(StartPersonalVault);
+                    menu.Items.Add(item);
+                }
 
-            ToolStripMenuItem work = new ToolStripMenuItem("Work");
-            work.Click += new EventHandler(StartWorkVault);
+                ToolStripMenuItem exitMenu = new ToolStripMenuItem("Exit");
+                exitMenu.Click += new EventHandler(Exit);
+                menu.Items.Add(exitMenu);
 
-            ToolStripMenuItem infosec = new ToolStripMenuItem("Hacking");
-            infosec.Click += new EventHandler(StartInfosecVault);
-            
-            ToolStripMenuItem exitMenu = new ToolStripMenuItem("Exit");
-            exitMenu.Click += new EventHandler(Exit);
-
-            menu.Items.Add(personal);
-            menu.Items.Add(work);
-            menu.Items.Add(infosec);
-            menu.Items.Add(exitMenu);  
-
-            TrayIcon.Visible = true;
+                TrayIcon.Visible = true;
+            }   
         }
 
-        public void StartPersonalVault(object sender, EventArgs e)
+        public void StartVault(object sender, EventArgs e, string vaultName)
         {
-            string url = "obsidian://open/?vault=Personal";
+            string url = $"obsidian://open/?vault={vaultName}";
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.UseShellExecute = true;
             info.FileName = url;
+
             Process.Start(info);
         }
 
-        public void StartWorkVault(object sender, EventArgs e)
-        {
-            string url = "obsidian://open/?vault=Work";
-
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.UseShellExecute = true;
-            info.FileName = url;
-            Process.Start(info);
-        }
-
-        public void StartInfosecVault(object sender, EventArgs e)
-        {
-            string url = "obsidian://open/?vault=Hacking";
-
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.UseShellExecute = true;
-            info.FileName = url;
-            Process.Start(info);
-        }
         public void Exit(object sender, EventArgs e)
         {
             Current.Shutdown();

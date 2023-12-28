@@ -1,0 +1,5 @@
+{
+  "VaultNames": [ "Personal", "Work", "Hacking" ],
+  "Tray": true,
+  "Taskbar": false
+}
